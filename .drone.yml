@@ -1,6 +1,3 @@
-workspace:
-  base: /go
-
 pipeline:
   # publish:
   #   image: plugins/ecr
@@ -17,13 +14,11 @@ pipeline:
     when:
       event: tag
     environment:
-      GO111MODULE: "on"
       KO_DOCKER_REPO: 558830342743.dkr.ecr.us-east-1.amazonaws.com/knative-webhook
+      GOPATH: /drone
     commands:
-    - env
-    - go version
-    - go get github.com/google/ko/cmd/ko@0.6.0
-    - ko publish ./cmd/webhook
+    - go get github.com/google/ko/cmd/ko
+    - /drone/bin/ko publish github.com/vtex/serving/cmd/webhook
   
   mark-as-latest-if-stable:
     image: plugins/webhook
