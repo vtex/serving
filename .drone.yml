@@ -1,3 +1,7 @@
+workspace:
+  base: /go
+  path: src/github.com/vtex/serving
+
 pipeline:
   #
   # publish:
@@ -18,8 +22,9 @@ pipeline:
       KO_DOCKER_REPO: 558830342743.dkr.ecr.us-east-1.amazonaws.com/knative-webhook
     commands:
     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 558830342743.dkr.ecr.us-east-1.amazonaws.com
+    - pwd
     - env
-    - /go/bin/ko publish github.com/vtex/serving/cmd/webhook
+    - ko publish github.com/vtex/serving/cmd/webhook
   
   mark-as-latest-if-stable:
     image: plugins/webhook
