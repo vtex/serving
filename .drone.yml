@@ -1,0 +1,35 @@
+pipeline:
+  # publish:
+  #   image: plugins/ecr
+  #   when:
+  #     event: tag
+  #   region: us-east-1
+  #   repo: 558830342743.dkr.ecr.us-east-1.amazonaws.com/faststore-ci-cd
+  #   build_args: "VERSION=${DRONE_TAG##v}"
+  #   tag:
+  #     - ${DRONE_TAG##v}
+
+  publish:
+    image: golang
+    when:
+      event: tag
+    environment:
+      GO111MODULE: on
+      KO_DOCKER_REPO: 558830342743.dkr.ecr.us-east-1.amazonaws.com/knative-webhook
+    commands:
+    - go get github.com/google/ko/cmd/ko
+    - ko publish ./cmd/webhook
+  
+  mark-as-latest-if-stable:
+    image: plugins/webhook
+    when:
+      event: tag
+    urls: http://releases.ingress.vtex.io/latest-if-stable/knative-webhook/${DRONE_TAG##v}
+    method: PATCH
+  notify:
+    image: plugins/slack
+    template: "*{{Build.Status}}*: <{{Build.Link}}|{{Repo.Owner}}/{{Repo.Name}}> (${DRONE_TAG##v}) by {{Build.Author}}"
+    webhook: https://hooks.slack.com/services/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
+    when:
+      event: tag
+      status: [success, failure]
