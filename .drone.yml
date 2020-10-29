@@ -11,7 +11,7 @@ pipeline:
   #     - ${DRONE_TAG##v}
 
   publish:
-    image: docker.io/cguimaraes/go-ko@sha256:c2730eadf167a191c7a0be01416595804e9da5d628b938987b95624e5e75d265
+    image: docker.io/cguimaraes/go-ko@sha256:79f6d1128d12552870c836518d24ee35652e66ce080a8837187ed4091c36feda
     when:
       event: tag
     environment:
