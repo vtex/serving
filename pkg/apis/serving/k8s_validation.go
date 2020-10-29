@@ -133,7 +133,7 @@ func validateVolume(volume corev1.Volume) *apis.FieldError {
 		}
 	}
 	if len(specified) == 0 {
-		errs = errs.Also(apis.ErrMissingOneOf("secret", "configMap", "projected"))
+		// errs = errs.Also(apis.ErrMissingOneOf("secret", "configMap", "projected"))
 	} else if len(specified) > 1 {
 		errs = errs.Also(apis.ErrMultipleOneOf(specified...))
 	}
