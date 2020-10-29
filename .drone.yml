@@ -14,7 +14,7 @@ pipeline:
     when:
       event: tag
     environment:
-      GO111MODULE: on
+      GO111MODULE: "on"
       KO_DOCKER_REPO: 558830342743.dkr.ecr.us-east-1.amazonaws.com/knative-webhook
     commands:
     - go get github.com/google/ko/cmd/ko
