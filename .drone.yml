@@ -15,13 +15,13 @@ pipeline:
     when:
       event: tag
     environment:
-      KO_DOCKER_REPO: 558830342743.dkr.ecr.us-east-1.amazonaws.com/knative-webhook
+      # KO_DOCKER_REPO: 558830342743.dkr.ecr.us-east-1.amazonaws.com/knative-webhook
       GOPATH: /drone
     commands:
     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 558830342743.dkr.ecr.us-east-1.amazonaws.com
     - pwd
     - env
-    - ko publish ./cmd/webhook
+    - ko publish --local ./cmd/webhook
   
   mark-as-latest-if-stable:
     image: plugins/webhook
