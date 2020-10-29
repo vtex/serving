@@ -10,7 +10,7 @@ pipeline:
   #     - ${DRONE_TAG##v}
 
   publish:
-    image: golang:v1.12.0
+    image: golang:1.12.0
     when:
       event: tag
     environment:
@@ -19,7 +19,7 @@ pipeline:
     commands:
     - env
     - go version
-    - go get github.com/google/ko/cmd/ko@v0.6.0
+    - go get github.com/google/ko/cmd/ko@0.6.0
     - ko publish ./cmd/webhook
   
   mark-as-latest-if-stable:
