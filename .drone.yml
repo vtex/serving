@@ -10,7 +10,7 @@ pipeline:
   #     - ${DRONE_TAG##v}
 
   publish:
-    image: golang:1.12.0
+    image: golang
     when:
       event: tag
     environment:
