@@ -1,7 +1,3 @@
-workspace:
-  base: /go
-  path: src/github.com/vtex/serving
-
 pipeline:
   #
   # publish:
@@ -24,7 +20,7 @@ pipeline:
     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 558830342743.dkr.ecr.us-east-1.amazonaws.com
     - pwd
     - env
-    - ko publish github.com/vtex/serving/cmd/webhook
+    - ko publish ./cmd/webhook
   
   mark-as-latest-if-stable:
     image: plugins/webhook
