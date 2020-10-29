@@ -1,4 +1,5 @@
 pipeline:
+  #
   # publish:
   #   image: plugins/ecr
   #   when:
